@@ -25,24 +25,35 @@
 .product-collection { min-width: 0; }
 .product-collection > h2 { margin: 1.6rem 5vw .65rem; font-size: clamp(1.4rem, 3vw, 2.2rem); }
 @media (max-width: 850px) {
-  .store .store-header { isolation: isolate; z-index: 5; padding-top: max(10px, env(safe-area-inset-top)); }
+  .store .store-header { isolation: isolate; z-index: 5; padding-top: calc(10px + env(safe-area-inset-top)); }
   .store .store-header nav:not(.open) { display: none; }
   .store .store-header nav.open { position: static; grid-column: 1 / -1; flex-wrap: wrap; gap: .35rem 1rem; height: auto; width: 100%; transform: none; padding: .4rem 0; }
   .store .store-header nav.open a { min-height: 44px; }
 }
 @media (max-width: 600px) {
   .store .product-collection .products {
-    display: grid; grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(0, 76%);
+    display: flex; align-items: flex-start; max-inline-size: 100%;
     gap: 12px; overflow-x: auto; overscroll-behavior-inline: contain;
-    scroll-snap-type: x mandatory; scroll-padding-inline: 16px; padding: 0 16px 12px; margin: 0;
+    padding: 0 16px 12px; margin: 0;
   }
-  .store .product-collection .products > article { min-width: 0; scroll-snap-align: start; }
+  .store .product-collection .products > article {
+    flex: 0 0 clamp(12rem, 72vw, 21rem);
+    min-inline-size: 0; grid-template-rows: auto auto auto auto;
+  }
+  .store .product-collection .product-image { width: 100%; height: auto; aspect-ratio: 3 / 4; }
+  .store .product-collection .products article > small { padding-inline: 0; }
+  .store .product-collection .products article > b { position: static; margin-inline: 13px; }
+  .store .product-collection .quick { bottom: 8px; }
   .store .product-collection .quick button { min-height: 44px; padding-inline: 4px; }
-  .store .store-header .actions { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); }
-  .store .store-header .actions button { justify-content: center; }
+  .store .store-header .actions { display: flex; align-items: center; gap: 0 10px; }
+  .store .store-header .actions button { padding-inline: 0; letter-spacing: .06em; }
   .store .store-header .currency select { max-width: 100%; }
+  .store .store-header .logo { letter-spacing: .12em; white-space: nowrap; }
+
 }
 @media (max-width: 850px) {
   .store .store-header nav.open { order: 3; }
+  .store .global-demo nav { position: static; flex-direction: row; flex-wrap: wrap; padding: 0; margin-bottom: 1.25rem; background: transparent; color: inherit; }
+  .store .global-demo nav button { min-height: 44px; }
   .store .store-header nav.open a { display: inline-flex; align-items: center; }
 }
